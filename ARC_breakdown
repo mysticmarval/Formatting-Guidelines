@@ -1,4 +1,4 @@
-MASTER DOCUMENT GENERATION — BUILD RULES (FINALIZED WITH MARKERS, NON-BLOCKING)
+MASTER DOCUMENT GENERATION — BUILD RULES (FINALIZED, NON-BLOCKING, RENDERED BY DEFAULT)
 
 THIS TEMPLATE PRODUCES A FULL ARC DOCUMENT MADE OF:
 • FILE HEADER (filename line using ARC_CODE)
@@ -7,11 +7,17 @@ THIS TEMPLATE PRODUCES A FULL ARC DOCUMENT MADE OF:
 • Section pages repeat this exact structure for every section in the arc.
 
 GLOBAL FORMATTING RULES:
-• ASCII only. Use straight quotes. No emojis.
-• Do NOT use any rich-text or Markdown markers (no **, __, _, ~, #, backticks, etc.).
+• ASCII only. Straight quotes. No emojis.
+• Do NOT use rich-text/Markdown markers (no **, __, _, ~, #, backticks).
 • Do not rewrite, summarize, or “improve” user-provided text.
 • Preserve capitalization and punctuation exactly.
-• Print fields exactly as labeled below. No extra commentary or lines beyond what is specified.
+• Print fields exactly as labeled below. No extra commentary or extra lines.
+
+OUTPUT MODE (IMPORTANT):
+• DEFAULT = RENDERED (no [LB]/[SP] tokens in the output).
+• RAW WITH MARKERS is allowed ONLY if the request explicitly includes the flag:
+  RAW_WITH_MARKERS: TRUE
+  - If this flag is absent, you MUST emit RENDERED output (no [LB]/[SP] visible).
 
 ------------------------------------------------------------
 ARC_CODE — GENERATION AND USE (NON-BLOCKING)
@@ -20,27 +26,23 @@ Purpose:
 • Short code (3–4 characters) that tags all files for the arc.
 
 Input / Default:
-• If an ARC_CODE is provided by the user, use it exactly as given.
-• If ARC_CODE is NOT provided, AUTO-GENERATE it (do not prompt):
-  - 3–4 uppercase characters; A–Z and 0–9 allowed.
-  - Derive from the arc title’s significant words.
+• If ARC_CODE is provided by the user, use it exactly.
+• If ARC_CODE is NOT provided, AUTO-GENERATE (do not prompt):
+  - 3–4 uppercase chars; A–Z and 0–9 allowed.
+  - Derive from significant words in the arc title.
   - Keep numerals present in the title (e.g., 3I in “3I/ATLAS”).
   - Ignore stopwords (THE, A, AN, AND, OF, TO, FOR).
-  - For compound words (slash or hyphen), you may take 1–2 letters from each part to reach 3–4 total.
-  - Prefer readability and uniqueness within the project.
-  - Examples:
-    • 3I/ATLAS Attunement → 3IAT
-    • Quantum Jump Primer → QJP
-    • Infinite Concentration → ICN
-    • Return of the Eight Senses → ROES
+  - For compounds (slash/hyphen), you may take 1–2 letters from each part to reach 3–4.
+  - Prefer readability and project-unique codes.
+  - Examples: 3I/ATLAS Attunement → 3IAT; Quantum Jump Primer → QJP; Infinite Concentration → ICN; Return of the Eight Senses → ROES.
 
 Collision handling:
 • If the auto-generated ARC_CODE conflicts with an existing arc in the same project, append a digit (e.g., QJP2). Do not prompt; proceed.
 
 Filename line (MUST BE FIRST OUTPUT LINE):
-• <ARC_CODE>_arc_breakdown.txt[LB]
-• Replace <ARC_CODE> with the generated/provided code.
-• Example: QJP_arc_breakdown.txt[LB]
+• RENDERED: <ARC_CODE>_arc_breakdown.txt
+• RAW WITH MARKERS: <ARC_CODE>_arc_breakdown.txt[LB]
+• After the filename line: exactly one blank line (RENDERED) or one [SP] (RAW).
 
 Operator policy:
 • Never halt to ask for ARC_CODE. Auto-generate if absent.
@@ -49,42 +51,43 @@ Operator policy:
 ------------------------------------------------------------
 PAGE 1 — ARC TITLE + ARC DESCRIPTION — BUILD RULES
 ------------------------------------------------------------
-Input fields:
+Inputs:
 • ARC Name
 • ARC Description
 
-Output structure (with markers):
+Output (RENDERED default):
+<blank line>
+ARC TITLE:  [ARC Name]
+<blank line>
+Description:  [ARC Description paragraph(s)]
+<blank line>
+
+Output (RAW WITH MARKERS):
 [SP]
 ARC TITLE:  [ARC Name][LB]
 [SP]
 Description:  [ARC Description paragraph(s)][LB]
 [SP]
 
-Non-blocking policy:
-• If ARC Name and ARC Description are present, print them as-is with no confirmations.
+Non-blocking:
+• If ARC Name and ARC Description exist, print them as-is with no confirmations.
 • Only prompt if either field is missing.
 
-Formatting rules:
-• Labels are plain text (no styling).
-• “ARC TITLE:” and the name appear on the SAME line.
-• “Description:” and the description appear on the SAME line.
-• Use exactly one [LB] at the end of each field line.
-• Insert one [SP] before the ARC TITLE line, and one [SP] before and after the Description line.
-• No extra commentary, no added or removed lines.
-
-Acceptance criteria (pass/fail)
-A1. No “[LB]” or “[SP]” strings remain after rendering; no trailing spaces.
+Formatting:
+• Labels are plain text. “ARC TITLE:” and the name appear on the same line.
+• “Description:” and the description appear on the same line.
+• Exactly one blank line (or [SP]) between blocks. No leading blank lines before the filename line.
 
 ------------------------------------------------------------
 PAGE 2+ — SECTION PAGES — BUILD RULES
 ------------------------------------------------------------
-Input per section:
+Inputs per section:
 • Section Number (integer)
 • Section Title (text)
 • Section Description (one sentence per micro-rules)
 • Section Benefit (one sentence per micro-rules)
 
-Input for all jumps (may be supplied separately):
+Inputs for all jumps:
 For each jump:
 • Jump Title
 • Jump Type
@@ -92,12 +95,26 @@ For each jump:
 • Jump Benefit (may contain multiple sentences)
 • Jump Section Reference (e.g., "Section 2: Learning That Sticks")
 
-Parsing rules:
-• Jump numbering is assigned automatically based on sequence order and continues across sections.
-• Section membership is determined by matching the Jump Section Reference.
-• Jumps are grouped by Section Reference (Section X) and printed in the order they appear within that group (not the paste order across sections).
+Parsing:
+• Jump numbering is assigned by provided sequence and continues across sections.
+• Section membership derives from Jump Section Reference.
+• Jumps are grouped by their Section Reference and printed in that group’s order.
 
-Output structure (with markers):
+Output (RENDERED default):
+<blank line>
+Section [Section Number]: [Section Title]
+Description: [Section Description]
+Benefit: [Section Benefit]
+<blank line>
+Jump [jump number]
+[Jump Title]
+Jump Type: [Jump Type]
+Description: [Jump Description]
+Benefit: [Jump Benefit]
+<blank line>
+(Repeat Jump block for all jumps in the section. Leave exactly one blank line after each Jump block and after the final Jump of each section.)
+
+Output (RAW WITH MARKERS):
 [SP]
 Section [Section Number]: [Section Title][LB]
 Description: [Section Description][LB]
@@ -109,27 +126,20 @@ Jump Type: [Jump Type][LB]
 Description: [Jump Description][LB]
 Benefit: [Jump Benefit][LB]
 [SP]
-(then repeat Jump block for all jumps belonging to that section)
-[SP] after the final Jump of each section.
+(Repeat for all jumps; include one [SP] after the final Jump of each section.)
 
-Formatting rules:
+Formatting:
 • Do not edit user text. Preserve capitalization and punctuation exactly.
-• Benefit may include multiple sentences exactly as provided.
-• Each field prints exactly as shown above.
-• Insert one [SP] before each Section header, one [SP] between the Section header block and the first Jump, and one [SP] after each Jump block.
-• No commentary or extra text.
+• Each field prints exactly as shown. No extra lines or commentary.
 
 ------------------------------------------------------------
-ACCEPTED RENDERING RULES
+ACCEPTED RENDERING RULES (FOR RAW MODE ONLY)
 ------------------------------------------------------------
-Replace [LB] with a newline.
-Replace [SP] with exactly one blank line.
-Do not print “[LB]” or “[SP]” in the rendered output.
-No added, removed, or reflowed lines. No extra blank lines. No trailing spaces.
-Rendered documents must visually match the canonical layout examples below.
-
-Acceptance criteria (pass/fail)
-A1. No “[LB]” or “[SP]” strings remain after rendering; no trailing spaces.
+• Replace [LB] with a newline.
+• Replace [SP] with exactly one blank line.
+• Do not print “[LB]” or “[SP]” in the rendered output.
+• No added, removed, or reflowed lines. No extra blank lines. No trailing spaces.
+• Rendered documents must visually match the canonical layout examples.
 
 ------------------------------------------------------------
 CANONICAL: RAW WITH MARKERS (example excerpt)
