@@ -1,4 +1,4 @@
-MASTER DOCUMENT GENERATION — BUILD RULES (FINALIZED WITH MARKERS)
+MASTER DOCUMENT GENERATION — BUILD RULES (FINALIZED WITH MARKERS, NON-BLOCKING)
 
 THIS TEMPLATE PRODUCES A FULL ARC DOCUMENT MADE OF:
 • FILE HEADER (filename line using ARC_CODE)
@@ -14,18 +14,18 @@ GLOBAL FORMATTING RULES:
 • Print fields exactly as labeled below. No extra commentary or lines beyond what is specified.
 
 ------------------------------------------------------------
-ARC_CODE — GENERATION AND USE
+ARC_CODE — GENERATION AND USE (NON-BLOCKING)
 ------------------------------------------------------------
-ARC_CODE PURPOSE:
+Purpose:
 • Short code (3–4 characters) that tags all files for the arc.
 
-ARC_CODE INPUT/DEFAULT:
+Input / Default:
 • If an ARC_CODE is provided by the user, use it exactly as given.
-• If not provided, generate one:
-  - 3–4 uppercase characters (A–Z, 0–9 allowed).
+• If ARC_CODE is NOT provided, AUTO-GENERATE it (do not prompt):
+  - 3–4 uppercase characters; A–Z and 0–9 allowed.
   - Derive from the arc title’s significant words.
-  - Keep numerals that appear in the title (e.g., 3I in “3I/ATLAS”).
-  - Ignore common stopwords (THE, A, AN, AND, OF, TO, FOR).
+  - Keep numerals present in the title (e.g., 3I in “3I/ATLAS”).
+  - Ignore stopwords (THE, A, AN, AND, OF, TO, FOR).
   - For compound words (slash or hyphen), you may take 1–2 letters from each part to reach 3–4 total.
   - Prefer readability and uniqueness within the project.
   - Examples:
@@ -34,61 +34,67 @@ ARC_CODE INPUT/DEFAULT:
     • Infinite Concentration → ICN
     • Return of the Eight Senses → ROES
 
-FILENAME LINE (MUST BE FIRST LINE OF OUTPUT):
-• <ARC_CODE>_arc_breakdown.txt
+Collision handling:
+• If the auto-generated ARC_CODE conflicts with an existing arc in the same project, append a digit (e.g., QJP2). Do not prompt; proceed.
+
+Filename line (MUST BE FIRST OUTPUT LINE):
+• <ARC_CODE>_arc_breakdown.txt[LB]
 • Replace <ARC_CODE> with the generated/provided code.
-• Example: QJP_arc_breakdown.txt
+• Example: QJP_arc_breakdown.txt[LB]
+
+Operator policy:
+• Never halt to ask for ARC_CODE. Auto-generate if absent.
+• If the user later supplies a different ARC_CODE, accept it and regenerate.
 
 ------------------------------------------------------------
 PAGE 1 — ARC TITLE + ARC DESCRIPTION — BUILD RULES
 ------------------------------------------------------------
-
-INPUT FIELDS:
+Input fields:
 • ARC Name
 • ARC Description
 
-OUTPUT STRUCTURE (with markers):
+Output structure (with markers):
 [SP]
 ARC TITLE:  [ARC Name][LB]
 [SP]
 Description:  [ARC Description paragraph(s)][LB]
 [SP]
 
-FORMATTING RULES:
-• ARC TITLE appears first, followed by a colon, then the ARC Name on the next line.
-• The word “Description:” appears exactly as written, followed by the ARC Description on the same line.
-• Insert one [SP] marker before and one after the Description block.
+Non-blocking policy:
+• If ARC Name and ARC Description are present, print them as-is with no confirmations.
+• Only prompt if either field is missing.
+
+Formatting rules:
+• Labels are plain text (no styling).
+• “ARC TITLE:” and the name appear on the SAME line.
+• “Description:” and the description appear on the SAME line.
 • Use exactly one [LB] at the end of each field line.
+• Insert one [SP] before the ARC TITLE line, and one [SP] before and after the Description line.
 • No extra commentary, no added or removed lines.
-• Use the ARC Name and Description exactly as provided.
 
 ------------------------------------------------------------
-PAGE 2+ — SECTION PAGE — BUILD RULES
+PAGE 2+ — SECTION PAGES — BUILD RULES
 ------------------------------------------------------------
-
-INPUT FIELDS PER SECTION:
+Input per section:
 • Section Number (integer)
 • Section Title (text)
 • Section Description (one sentence per micro-rules)
 • Section Benefit (one sentence per micro-rules)
 
-INPUT FIELDS FOR ALL JUMPS:
-(These may be supplied separately from section list)
-For each jump (per line):
+Input for all jumps (may be supplied separately):
+For each jump:
 • Jump Title
 • Jump Type
 • Jump Description
 • Jump Benefit (may contain multiple sentences)
-• Jump Section Reference (ex: "Section 2: Learning That Sticks")
+• Jump Section Reference (e.g., "Section 2: Learning That Sticks")
 
-PARSING RULES:
-• Jump numbering is assigned automatically based on sequence order.
-• Jump numbering continues from arc start (so Section 2 begins where Section 1 ended).
-• Jumps for each section are determined by matching Section Reference text.
-• Jumps are grouped by Section Reference (Section X) and printed in the order they appear within that group, not the paste order across sections.
+Parsing rules:
+• Jump numbering is assigned automatically based on sequence order and continues across sections.
+• Section membership is determined by matching the Jump Section Reference.
+• Jumps are grouped by Section Reference (Section X) and printed in the order they appear within that group (not the paste order across sections).
 
-OUTPUT STRUCTURE (with markers):
-
+Output structure (with markers):
 [SP]
 Section [Section Number]: [Section Title][LB]
 Description: [Section Description][LB]
@@ -100,27 +106,23 @@ Jump Type: [Jump Type][LB]
 Description: [Jump Description][LB]
 Benefit: [Jump Benefit][LB]
 [SP]
-
 (then repeat Jump block for all jumps belonging to that section)
 [SP] after the final Jump of each section.
 
-FORMATTING RULES:
-• Do not rewrite or edit any user-provided text.
-• Preserve capitalization and punctuation exactly.
+Formatting rules:
+• Do not edit user text. Preserve capitalization and punctuation exactly.
 • Benefit may include multiple sentences exactly as provided.
 • Each field prints exactly as shown above.
-• Insert one [SP] before each Section, between Section header and first Jump, and after each Jump block.
+• Insert one [SP] before each Section header, one [SP] between the Section header block and the first Jump, and one [SP] after each Jump block.
 • No commentary or extra text.
 
 ------------------------------------------------------------
 ACCEPTED RENDERING RULES
 ------------------------------------------------------------
-
-Replace [LB] with a newline.  
-Replace [SP] with exactly one blank line.  
-Do not print “[LB]” or “[SP]” in the rendered output.  
-No added, removed, or reflowed lines. No extra blank lines. No trailing spaces.  
-
+Replace [LB] with a newline.
+Replace [SP] with exactly one blank line.
+Do not print “[LB]” or “[SP]” in the rendered output.
+No added, removed, or reflowed lines. No extra blank lines. No trailing spaces.
 Rendered documents must visually match the canonical layout examples below.
 
 ------------------------------------------------------------
