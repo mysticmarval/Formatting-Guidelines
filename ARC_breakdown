@@ -72,6 +72,9 @@ Formatting rules:
 • Insert one [SP] before the ARC TITLE line, and one [SP] before and after the Description line.
 • No extra commentary, no added or removed lines.
 
+Acceptance criteria (pass/fail)
+A1. No “[LB]” or “[SP]” strings remain after rendering; no trailing spaces.
+
 ------------------------------------------------------------
 PAGE 2+ — SECTION PAGES — BUILD RULES
 ------------------------------------------------------------
@@ -124,6 +127,9 @@ Replace [SP] with exactly one blank line.
 Do not print “[LB]” or “[SP]” in the rendered output.
 No added, removed, or reflowed lines. No extra blank lines. No trailing spaces.
 Rendered documents must visually match the canonical layout examples below.
+
+Acceptance criteria (pass/fail)
+A1. No “[LB]” or “[SP]” strings remain after rendering; no trailing spaces.
 
 ------------------------------------------------------------
 CANONICAL: RAW WITH MARKERS (example excerpt)
