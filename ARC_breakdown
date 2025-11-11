@@ -1,0 +1,73 @@
+MASTER DOCUMENT GENERATION — BUILD RULES
+
+THIS TEMPLATE PRODUCES A FULL ARC DOCUMENT MADE OF:
+• PAGE 1 (ARC TITLE + ARC DESCRIPTION)
+• PAGE 2+ (SECTION PAGES — each section is its own page)
+• Section pages repeat this exact structure for every section in the arc.
+
+------------------------------------------------------------
+PAGE 1 — ARC TITLE + ARC DESCRIPTION — BUILD RULES
+------------------------------------------------------------
+
+INPUT FIELDS:
+• ARC Name
+• ARC Description
+
+OUTPUT STRUCTURE (exact):
+ARC TITLE:  [ARC Name]
+
+Description:  [ARC Description paragraph(s)]
+
+FORMATTING RULES:
+• ARC TITLE appears first, bolded, followed by a colon, then a line break, then the ARC Name on the next line.
+• The word “Description:” appears exactly as written, bolded, followed by a colon.
+• The ARC Description text appears immediately after “Description:” on the same line.
+• No extra commentary, no additional sentences, no generated embellishments.
+• Use the ARC Name and Description exactly as provided in raw input.
+
+
+------------------------------------------------------------
+PAGE 2+ — SECTION PAGE — BUILD RULES
+------------------------------------------------------------
+
+INPUT FIELDS PER SECTION:
+• Section Number (integer)
+• Section Title (text)
+• Section Description (one sentence per micro-rules)
+• Section Benefit (one sentence per micro-rules)
+
+INPUT FIELDS FOR ALL JUMPS:
+(These may be supplied separately from section list)
+For each jump (per line):
+• Jump Title
+• Jump Type
+• Jump Description
+• Jump Benefit (may contain multiple sentences)
+• Jump Section Reference (ex: "Section 2: Learning That Sticks")
+
+PARSING RULES:
+• Jump numbering is assigned automatically based on sequence order.
+• Jump numbering continues from arc start (so Section 2 begins where Section 1 ended).
+• Jumps for each section are determined by matching Section Reference text.
+• Jumps are always printed in the exact order they are provided in the jump dataset.
+
+OUTPUT STRUCTURE (exact):
+
+Section [Section Number]: [Section Title]  
+Description: [Section Description]  
+Benefit: [Section Benefit]
+
+Jump [jump number]  
+[Jump Title]  
+Jump Type: [Jump Type]  
+Description: [Jump Description]  
+Benefit: [Jump Benefit]
+
+(then repeat Jump block for all jumps belonging to that section)
+
+FORMATTING RULES:
+• Do not rewrite or edit any user-provided text.
+• Preserve all capitalization and punctuation exactly.
+• Benefit may be multiple sentences exactly as provided.
+• Each field prints exactly as shown above.
+• No commentary or extra sentences outside this structure.
