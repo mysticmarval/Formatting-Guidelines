@@ -4,7 +4,7 @@ MASTER DOCUMENT GENERATION — BUILD RULES (updated)
 
 THIS TEMPLATE PRODUCES A FULL ARC DOCUMENT MADE OF:
 • FILE HEADER (filename line using ARC_CODE)
-• PAGE 1 (ARC TITLE + ARC DESCRIPTION)
+• PAGE 1 (ARC TITLE + ARC DESCRIPTION + ARC INTENTION)
 • PAGE 2+ (SECTION PAGES — each section is its own page)
 • Section pages repeat this exact structure for every section in the arc.
 
@@ -41,7 +41,7 @@ FILENAME LINE (MUST BE FIRST LINE OF OUTPUT):
 • Replace <ARC_CODE> with the generated/provided code.
 • Example: QJP_arc_breakdown.txt
 • After printing the filename line, output exactly two blank lines (two empty newlines with no spaces or tabs), then begin PAGE 1.
-• Spacing: One blank line must appear between the filename line and ARC TITLE. No other extra blank lines are allowed.
+• Spacing: Two blank lines must appear between the filename line and ARC TITLE. No other extra blank lines are allowed.
 
 ------------------------------------------------------------
 PAGE 1 — ARC TITLE + ARC DESCRIPTION — BUILD RULES
@@ -50,18 +50,23 @@ PAGE 1 — ARC TITLE + ARC DESCRIPTION — BUILD RULES
 INPUT FIELDS:
 • ARC Name
 • ARC Description
+• ARC Intention
 
 OUTPUT STRUCTURE (exact):
 ARC TITLE:  [ARC Name]
+
 Description:  [ARC Description paragraph(s)]
+
+Intention: [ARC Intention paragraph(s)]
 
 FORMATTING RULES:
 • Labels appear exactly as shown above (plain text; not bold).
-• ARC TITLE appears first, followed by a colon, then the ARC Name on the next line.
+• ARC TITLE appears first, followed by a colon, then a blank line, then the ARC Name on the next line, then a blank line, then the ARC Intention on the next line.
 • The label “Description:” appears exactly as written, followed by the description text on the same line.
+• The label “Intention:” appears exactly as written, followed by the description text on the same line.
 • No extra commentary, no additional sentences, no generated embellishments.
-• Use the ARC Name and Description exactly as provided in raw input.
-• After printing "Description: [ARC Description]" on PAGE 1, emit exactly four blank lines.
+• Use the ARC Name, Description, and Intention exactly as provided in raw input.
+• After printing "Intention: [ARC Intention]" on PAGE 1, emit exactly four blank lines.
 
 
 ------------------------------------------------------------
